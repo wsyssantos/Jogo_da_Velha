@@ -3,7 +3,33 @@ import './Jogo.css';
 
 
 function verificaGanhador(itemMatriz) {
-
+    if (itemMatriz[0][0] === itemMatriz[0][1] && itemMatriz[0][1] === itemMatriz[0][2]) {
+        return itemMatriz[0][0]
+    }
+    else if (itemMatriz[1][0] === itemMatriz[1][1] && itemMatriz[1][1] === itemMatriz[1][2]) {
+        return itemMatriz[1][0]
+    }
+    else if (itemMatriz[2][0] === itemMatriz[2][1] && itemMatriz[2][1] === itemMatriz[2][2]) {
+        return itemMatriz[2][0]
+    }
+    else if (itemMatriz[0][0] === itemMatriz[1][0] && itemMatriz[1][0] === itemMatriz[2][0]) {
+        return itemMatriz[0][0]
+    }
+    else if (itemMatriz[0][1] === itemMatriz[1][1] && itemMatriz[1][1] === itemMatriz[2][1]) {
+        return itemMatriz[0][1]
+    }
+    else if (itemMatriz[0][2] === itemMatriz[1][2] && itemMatriz[1][2] === itemMatriz[2][2]) {
+        return itemMatriz[0][2]
+    }
+    else if (itemMatriz[0][0] === itemMatriz[1][1] && itemMatriz[1][1] === itemMatriz[2][2]) {
+        return itemMatriz[0][0]
+    }
+    else if (itemMatriz[0][2] === itemMatriz[1][1] && itemMatriz[1][1] === itemMatriz[2][0]) {
+        return itemMatriz[0][2]
+    }
+    else {
+        return null
+    }
 }
 
 export default function Jogar() {
@@ -15,15 +41,28 @@ export default function Jogar() {
     
     const [valor, setValor] = useState('X'); /* Valor inicial atribuído*/
     const [itemMatriz, setItemMatriz] = useState (matriz); /* Valor inicial do Jogo */
-    /* const vencedorX = ["X", "X", "X"]
-    const vencedorO = ["O", "O", "O"]
-    const [vencedor, setVencedor] = useState(false)
-    const [contadorX, setContadorX] = useState(0)
-    const [contadorO, setContadorO] = useState(0)    */ 
+
+    const limpaJogo = () => {
+        setItemMatriz(matriz);
+        setValor('X');
+    }
+
+    const mostraVencedor = (vencedor) => {
+        if(vencedor != null) {
+            alert('Vencedor é o player "' + vencedor + '"')
+            limpaJogo()
+        }
+    }
+
+    useEffect(() => {
+        document.title = `Vez do jogador ${valor}!`;
+        let vencedor = verificaGanhador(itemMatriz);
+        mostraVencedor(vencedor)
+    });
+
     const elementos = (indexAlterar, itemIndexAlterar) => {/* Posição linha clicada e coluna clicada */
         var podeJogar = false 
-        var vencedor = false
-                const Linha = itemMatriz.map((linha,index) => {
+        const Linha = itemMatriz.map((linha,index) => {
             return linha.map((coluna, itemIndex) => {
                 if (indexAlterar === index && itemIndex === itemIndexAlterar && coluna == null) {
                     coluna = valor 
@@ -40,19 +79,7 @@ export default function Jogar() {
             } else if (valor === 'O') {
                 setValor('X')
             }
-       
-           /*  
-        if(!vencedor){
-            if(setItemMatriz.toString() === vencedorX.toString()){
-                alert('Vencedor é o player "X"')
-                setVencedor(true)
-                setContadorX(contadorX + 1)
-            } else if (setItemMatriz.toString() === vencedorO.toString()){
-                alert('Vencedor é o player "O"')
-                setVencedor(true)
-                setContadorO(contadorO + 1)
-            } */
-            }
+        }
         
     }       
     return (
@@ -67,7 +94,9 @@ export default function Jogar() {
                         )}
                     </div>
                 )}
-                <button className='jogar-novamente'>Jogar Novamente</button>        
+                <button className='jogar-novamente' onClick={() => {
+                    limpaJogo()
+                }}>Recomeçar Jogo</button>        
             </div>
         </div>
         
