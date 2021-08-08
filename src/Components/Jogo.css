@@ -1,0 +1,32 @@
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #20002c;
+    background: -webkit-linear-gradient(to right, #cbb4d4, #20002c); 
+    background: linear-gradient(to right, #cbb4d4, #20002c);
+}
+.title{
+   font-size: 30px;
+   margin-top: 2rem;
+   margin-bottom: 3rem;
+}
+.layout__row{
+    display: flex;  
+}
+p{
+   width: 5rem;
+   height: 5rem;
+   font-size: 4rem;   
+   border: 1px solid wheat; 
+   background-color: #20002c; 
+   color:#e3aef8;
+   border-radius: 4px; 
+   margin: 0.1rem;  
+   display: flex;
+   justify-content: center; 
+}
